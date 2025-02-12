@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Show - Game</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('background.png') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background: rgba(34, 34, 34, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+        }
+        .word-box {
+            display: inline-block;
+            width: 200px;
+            height: 50px;
+            line-height: 50px;
+            background: yellow;
+            color: black;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 10px;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .input-box {
+            width: 200px;
+            height: 50px;
+            font-size: 20px;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .button {
+            background: #ffcc00;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .special-image {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <audio id="background-music" src="lounge.mp4" autoplay loop></audio>
+    <div class="container">
+        <h1>Answer the Question!</h1>
+        <div id="game-board">
+            <div class="word-box" id="answer"></div>
+            <input type="text" class="input-box" id="guess" placeholder="What is ...?">
+        </div>
+        <br>
+        <button class="button" onclick="checkGuess()">Submit</button>
+        <p id="score">Score: 0</p>
+        <img src="kulli.png" id="specialImage" class="special-image">
+        <audio id="audio" src="kello.mp3"></audio>
+    </div>
+
+    <script>
+        const qaPairs = [
+            ["The Sun", "S"],
+            ["Einstein", "E"],
+            ["Mount Everest", "M"],
+            ["The Pacific Ocean", "P"],
+            ["Shakespeare", "S"],
+            ["Amazon", "A"],
+            ["Paris", "P"],
+            ["Mars", "M"],
+            ["Nile", "N"],
+            ["Jupiter", "J"],
+            ["Leonardo da Vinci", "L"],
+            ["Great Wall of China", "G"],
+            ["Venus", "V"],
+            ["Tokyo", "T"],
+            ["Mount Kilimanjaro", "M"],
+            ["Atlantic Ocean", "A"],
+            ["Newton", "N"],
+            ["Mickey Mouse", "M"],
+            ["Everest", "E"],
+            ["Sahara", "S"]
+        ];
+        
+        let score = 0;
+        let incorrectAnswers = 0;
+        let questions = qaPairs.sort(() => Math.random() - 0.5);
+        let currentIndex = 0;
+
+        function loadNextQuestion() {
+            if (currentIndex < questions.length) {
+                document.getElementById("answer").innerText = questions[currentIndex][0];
+                document.getElementById("guess").value = "";
+            } else {
+                alert("Game Over! Final Score: " + score);
+                location.reload();
+            }
+        }
+
+        function checkGuess() {
+            const guess = document.getElementById("guess").value.trim();
+            if (guess.toLowerCase() === questions[currentIndex][1].toLowerCase()) {
+                score++;
+                document.getElementById("score").innerText = "Score: " + score;
+                if (score === 2) {
+                    document.getElementById("background-music").pause();
+                    document.getElementById("audio").play();
+                    document.getElementById("audio").onended = function() {
+                        document.getElementById("background-music").play();
+                    };
+                    document.getElementById("specialImage").style.display = "block";
+                    return;
+                }
+            } else {
+                incorrectAnswers++;
+                if (incorrectAnswers >= 2) {
+                    alert('Game Over! You did not reach 2 correct answers in 2 attempts. Restarting...');
+                    location.reload();
+                    return;
+                }
+            }
+            currentIndex++;
+            loadNextQuestion();
+        }
+
+        window.onload = function() {
+            let bgMusic = document.getElementById("background-music");
+            bgMusic.play().catch(() => {
+                document.body.addEventListener('click', () => {
+                    bgMusic.play();
+                }, { once: true });
+            });
+            loadNextQuestion();
+        };
+    </script>
+</body>
+</html>
