@@ -1,89 +1,64 @@
-import React, { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-
-const WORD_PAIRS = [
-  ["Sun", "Moon", "Star"],
-  ["Dog", "Cat", "Mouse"],
-  ["Car", "Bus", "Train"],
-  ["Apple", "Banana", "Orange"],
-  ["Table", "Chair", "Desk"],
-  ["Pen", "Pencil", "Eraser"],
-  ["Shirt", "Pants", "Shoes"],
-  ["Red", "Blue", "Green"],
-  ["Gold", "Silver", "Bronze"],
-  ["Phone", "Laptop", "Tablet"],
-  ["Tree", "Leaf", "Branch"],
-  ["Ocean", "River", "Lake"],
-  ["Happy", "Sad", "Angry"],
-  ["Fast", "Slow", "Medium"],
-  ["Hot", "Cold", "Warm"],
-  ["Tall", "Short", "Medium"],
-  ["Big", "Small", "Tiny"],
-  ["Day", "Night", "Evening"],
-  ["Left", "Right", "Middle"],
-  ["Hard", "Soft", "Smooth"]
-];
-
-const CORRECT_PASSWORD = "MAGIC";
-
-export default function Game() {
-  const [password, setPassword] = useState("");
-  const [authenticated, setAuthenticated] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [score, setScore] = useState(0);
-  const [guess, setGuess] = useState("");
-
-  const handlePasswordSubmit = () => {
-    if (password.toUpperCase() === CORRECT_PASSWORD) {
-      setAuthenticated(true);
-    }
-  };
-
-  return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white">
-      {!authenticated ? (
-        <div className="flex flex-col items-center bg-yellow-500 p-8 rounded-lg shadow-lg">
-          <h1 className="text-4xl font-extrabold mb-6">🎤 Quiz Show! 🎭</h1>
-          <h2 className="text-2xl mb-4">Enter Password to Begin:</h2>
-          <Input
-            type="text"
-            className="mb-4 text-black p-3 rounded-lg text-center text-xl"
-            maxLength={5}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-xl" onClick={handlePasswordSubmit}>Submit</Button>
-        </div>
-      ) : currentIndex < WORD_PAIRS.length ? (
-        <div className="flex flex-col items-center bg-blue-900 p-8 rounded-lg shadow-lg">
-          <h1 className="text-4xl font-extrabold mb-6">🎤 Quiz Show! 🎭</h1>
-          <h2 className="text-2xl mb-4">Guess the missing word!</h2>
-          <div className="flex gap-6 text-2xl mb-6">
-            <div className="p-6 bg-yellow-400 text-black font-bold rounded-lg">{WORD_PAIRS[currentIndex][0]}</div>
-            <div className="p-6 bg-yellow-400 text-black font-bold rounded-lg">{WORD_PAIRS[currentIndex][1]}</div>
-            <Input
-              type="text"
-              className="text-black p-3 rounded-lg text-xl"
-              value={guess}
-              onChange={(e) => setGuess(e.target.value)}
-            />
-          </div>
-          <Button className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg text-xl" onClick={() => {
-            if (guess.toLowerCase() === WORD_PAIRS[currentIndex][2].toLowerCase()) {
-              setScore(score + 1);
-              setCurrentIndex(currentIndex + 1);
-              setGuess("");
-            }
-          }}>Submit</Button>
-          <p className="mt-6 text-2xl">Score: {score}</p>
-        </div>
-      ) : (
-        <div className="flex flex-col items-center bg-green-900 p-8 rounded-lg shadow-lg">
-          <h1 className="text-4xl font-extrabold mb-6">🏆 Game Over! 🏆</h1>
-          <h2 className="text-2xl">Your Score: {score}</h2>
-        </div>
-      )}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Show - Password</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('background.png') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background: rgba(34, 34, 34, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .password-box {
+            font-size: 24px;
+            letter-spacing: 10px;
+            background: black;
+            color: white;
+            padding: 10px;
+            border: none;
+            text-align: center;
+            width: 120px;
+        }
+        .button {
+            background: #ffcc00;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Enter Password</h1>
+        <input type="password" maxlength="5" class="password-box" id="password">
+        <br>
+        <button class="button" onclick="checkPassword()">Submit</button>
     </div>
-  );
-}
+
+    <script>
+        function checkPassword() {
+            const password = document.getElementById("password").value;
+            if (password.toUpperCase() === "MAGIC") {
+                window.location.href = "game.html";
+            } else {
+                alert("Incorrect password! Try again.");
+            }
+        }
+    </script>
+</body>
+</html>
