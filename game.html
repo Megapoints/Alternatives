@@ -21,22 +21,25 @@
             border-radius: 10px;
             text-align: center;
             position: relative;
+            width: 50%;
         }
         .word-box {
             display: inline-block;
-            width: 200px;
-            height: 50px;
-            line-height: 50px;
+            width: 90%;
+            height: auto;
+            padding: 10px;
             background: yellow;
             color: black;
             font-size: 20px;
             font-weight: bold;
-            margin: 10px;
+            margin: 10px auto;
             text-align: center;
             border-radius: 5px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         .input-box {
-            width: 200px;
+            width: 90%;
             height: 50px;
             font-size: 20px;
             text-align: center;
@@ -67,7 +70,7 @@
         <h1>Answer the Question!</h1>
         <div id="game-board">
             <div class="word-box" id="answer"></div>
-            <input type="text" class="input-box" id="guess" placeholder="What is ...?">
+            <input type="text" class="input-box" id="guess" placeholder="Who Am I ...?">
         </div>
         <br>
         <button class="button" onclick="checkGuess()">Submit</button>
@@ -78,27 +81,27 @@
 
     <script>
         const qaPairs = [
-            ["The Sun", "S"],
-            ["Einstein", "E"],
-            ["Mount Everest", "M"],
-            ["The Pacific Ocean", "P"],
-            ["Shakespeare", "S"],
-            ["Amazon", "A"],
-            ["Paris", "P"],
-            ["Mars", "M"],
-            ["Nile", "N"],
-            ["Jupiter", "J"],
-            ["Leonardo da Vinci", "L"],
-            ["Great Wall of China", "G"],
-            ["Venus", "V"],
-            ["Tokyo", "T"],
-            ["Mount Kilimanjaro", "M"],
-            ["Atlantic Ocean", "A"],
-            ["Newton", "N"],
-            ["Mickey Mouse", "M"],
-            ["Everest", "E"],
-            ["Sahara", "S"]
-        ];
+            ["I take pictures, I'm first on the line", "MEGA"],
+            ["I tried to fly to Mt Everest by plane", "Wilson"],
+            ["I like Meek Mill and went to jail", "Puff Daddy"],
+            ["I'm from Perseestä and sometimes very sad and lonely", "Markus"],
+            ["My uncle calls me Makkara", "Mauno"],
+            ["I'm so in Mensa", "Minna"],
+            ["I like dresses, my auntie wears usually wrong ones", "Joalin"],
+            ["I had over two years ago a boxing match against midget", "Tyson Fury"],
+            ["The More You Take, The More You Leave Behind", "footstep"],
+            ["The More You Remove From Me, The Bigger I Get.", "Hole"],
+            ["I'm good at word games, but not so great in smart 10", "Minna"],
+            ["I love capitalism and like to pollute", "Minna"],
+            ["I have not found my true love to Suolakurkku yet, but for sure it's coming", "Minna"],
+            ["I used to love word 'mäiske'", "Minna"],
+            ["I am not alive, but I grow. I don’t have lungs, but I need air. I don’t have a mouth, but water kills me.", "Fire"],
+            ["I have a head, a tail, but no body.", "coin"],
+            ["I was once at the beginning mean, but never after that", "Minna"],
+            ["I made many mistakes, have lot of issues, but luckily I'm not boring", "Markus"],
+            ["I go in hard, come out soft, and never mind if you blow me.", "chewing gum"],
+            ["We had lot of fun and I miss it sometimes a lot", "Markus"]
+        ]; // Existing question-answer pairs
         
         let score = 0;
         let incorrectAnswers = 0;
