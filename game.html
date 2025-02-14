@@ -123,7 +123,7 @@
             if (guess.toLowerCase() === questions[currentIndex][1].toLowerCase()) {
                 score++;
                 document.getElementById("score").innerText = "Score: " + score;
-                if (score === 7) {
+                if (score === 2) {
                     document.getElementById("background-music").pause();
                     document.getElementById("audio").play();
                     document.getElementById("audio").onended = function() {
@@ -134,8 +134,8 @@
                 }
             } else {
                 incorrectAnswers++;
-                if (incorrectAnswers >= 7) {
-                    alert('Game Over! You did not reach 7 correct answers in 7 attempts. Restarting...');
+                if (incorrectAnswers >= 2) {
+                    alert('Game Over! You did not reach 2 correct answers in 2 attempts. Restarting...');
                     location.reload();
                     return;
                 }
